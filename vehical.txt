@@ -1,0 +1,15 @@
+import cv2
+car_cascade = cv2.CascadeClassifier('cars.xml')
+cap = cv2.VideoCapture('video.avi')
+while True:
+    success, frames = cap.read()
+    if success == True:
+        gray = cv2.cvtColor(frames, cv2.COLOR_BGR2GRAY)
+        cars = car_cascade.detectMultiScale(gray, 1.1, 1)
+        for x, y, w, h in cars:
+            cv2.rectangle(frames, (x, y), (x + w, y + h), (0, 0, 255), 2)
+        cv2.imshow('video2', frames)
+        cv2.waitKey(1)
+    else:
+        print('video completed')
+        break
